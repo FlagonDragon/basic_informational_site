@@ -5,29 +5,62 @@ import fs from 'node:fs';
 var http = require('http');
 
 function onRequest(request, response) {
-  fs.readFile('./index.html', 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
+
+  if (request.url === '/') {
+
+    fs.readFile('./index.html', 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.end(data);
       return;
-    }
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.end(data);
-    return;
-  });
+    });
 
-  // response.end("Hello World 8080!!!\n");
-}
+  } else if (request.url === '/about') {
 
-function onRequest2(request, response) {
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.end("Hello World 8000!!!\n");
+    fs.readFile('./about.html', 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.end(data);
+      return;
+    });
+
+  } else if (request.url === '/contact-me') {
+
+    fs.readFile('./contact-me.html', 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.end(data);
+      return;
+    });
+
+  } else {
+
+    fs.readFile('./404.html', 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.end(data);
+      return;
+    });
+
+  } 
+
 }
 
 // Configure our HTTP server to respond with Hello World to all requests.
 var server = http.createServer(onRequest);
-var server2 = http.createServer(onRequest2);
 
 // Listen on port 8000, IP defaults to 127.0.0.1
 server.listen(8080);
-// server2.listen(8000);
 
