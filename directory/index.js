@@ -58,9 +58,7 @@ function onRequest(request, response) {
 
 }
 
-// Configure our HTTP server to respond with Hello World to all requests.
 var server = http.createServer(onRequest);
 
-// Listen on port 8000, IP defaults to 127.0.0.1
 server.listen(8080);
 
